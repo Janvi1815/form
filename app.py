@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash
 from form import RegistrationForm
-
+import os
 app = Flask(__name__)
 app.secret_key = 'mysecretkey'  # CSRF protection key
 
@@ -14,4 +14,5 @@ def register():
     return render_template("reg.html", form=form)
 
 if __name__ == "__main__":
-    app.run(debug=True,port=5003)
+    port = int(os.environ.get("PORT", 5000))  # ✅ this makes it work on Render
+    app.run(debug=True, host="0.0.0.0", port=port)
